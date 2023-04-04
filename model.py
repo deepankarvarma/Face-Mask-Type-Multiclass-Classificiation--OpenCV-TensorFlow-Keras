@@ -2,7 +2,8 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.layers import GlobalAveragePooling2D, Dense
 from tensorflow.keras.models import Model
-from efficientnet.tfkeras import EfficientNetB7
+from tensorflow.keras.applications.inception_resnet_v2 import InceptionResNetV2
+
 
 # Define the training and test data directories
 train_dir = 'Dataset/train'
@@ -30,11 +31,9 @@ test_generator = test_datagen.flow_from_directory(test_dir,
                                                   class_mode='categorical')
 
 # Define the EfficientNetB7 model as the base model
-base_model = EfficientNetB7(include_top=False, weights='imagenet', input_shape=(224, 224, 3))
-
-# Add new layers on top of the base model for classification
+base_model = InceptionResNetV2(include_top=False, weights='imagenet', input_shape=(224, 224, 3))
 x = GlobalAveragePooling2D()(base_model.output)
-x = Dense(128, activation='relu')(x)
+x = Dense(64, activation='relu')(x)
 predictions = Dense(5, activation='softmax')(x)
 
 # Combine the base model with the new layers
@@ -59,4 +58,4 @@ test_loss, test_acc = model.evaluate(test_generator)
 print('Test accuracy:', test_acc)
 
 # Saving the model
-model.save('face_mask_classification_efficientnetb7.h5')
+model.save('face_mask_classification.h5')
