@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 model = tf.keras.models.load_model('face_mask_classification.h5')
 
 
-
 # Load the image and preprocess it
 img = image.load_img("images/5.jpg", target_size=(224, 224))
 img_array = image.img_to_array(img)
