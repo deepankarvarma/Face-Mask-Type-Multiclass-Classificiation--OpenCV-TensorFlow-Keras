@@ -50,7 +50,7 @@ model.compile(optimizer='adam',
 
 # Train the model
 history = model.fit(train_generator,
-                    epochs=13,
+                    epochs=10,
                     validation_data=test_generator)
 
 # Evaluate the model on the test set
