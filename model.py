@@ -30,7 +30,7 @@ test_generator = test_datagen.flow_from_directory(test_dir,
                                                   batch_size=32,
                                                   class_mode='categorical')
 
-# Define the EfficientNetB7 model as the base model
+# Define the InceptionResNetV2 model as the base model
 base_model = InceptionResNetV2(include_top=False, weights='imagenet', input_shape=(224, 224, 3))
 x = GlobalAveragePooling2D()(base_model.output)
 x = Dense(64, activation='relu')(x)
